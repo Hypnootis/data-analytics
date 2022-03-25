@@ -2,7 +2,7 @@ import numpy
 
 zeroes_list = numpy.zeros(15)
 ones_list = numpy.ones(15)
-sevens_list = numpy.full(15, 7)
+sevens_list = numpy.repeat(7, 15)
 hundred_list = numpy.arange(100, 151)
 year_list = numpy.arange(1900, 2022)
 evens_list = numpy.arange(0, 101, 2)
