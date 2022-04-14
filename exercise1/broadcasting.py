@@ -10,6 +10,6 @@ odd_sums = numpy.sum(dataset[dataset % 2 != 0])
 
 std_deviation = numpy.std(dataset)
 
-row_sums = numpy.sum(dataset[0, 0:])
+row_sums = numpy.sum(dataset, axis = 1)
 
-column_sums = numpy.sum(dataset[0:, 0])
+column_sums = numpy.sum(dataset, axis = 0)
