@@ -21,4 +21,24 @@ def yearly_wage(row):
     # return the yearly salary in integer format
     return number
 
-data = yearly_wage(data["Salary"])
+# Converted annual salary, in indian rupees
+data["Annual Salary"] = data.apply(yearly_wage, axis=1)
+
+# Most common company names
+common_company = data["Company Name"].value_counts().nlargest(5)
+
+# Most common job locations, seems to be an emphasis in Bangalore
+common_location = data["Location"].value_counts().nlargest(5)
+
+# Most common job titles
+common_titles = data["Job Title"].value_counts().nlargest(5)
+
+# Seeing if the salary mean is skewed by the 2 highest earners, whose salaries are almost twofold
+# Compared to the one behind them
+mean_salary = data["Annual Salary"].mean()
+# vesas, as in Vesa Keskinen(s)
+annual = data["Annual Salary"]
+no_vesas = annual.drop(index=annual.nlargest(2, keep="all").index)
+mean_salary_no_vesas = no_vesas.mean()
+# This alone drops the mean by ~20k rupees, not much probably but still good to know
+

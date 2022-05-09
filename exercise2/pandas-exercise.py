@@ -28,6 +28,9 @@ income_id = income_id["Real Annual Income"]
 
 lowest_income = data["Real Annual Income"].min()
 
+# Since the lowest actual income is negative, this is for the positive...
+lowest_positive_income = min([smallest for smallest in data["Real Annual Income"] if smallest > 0])
+
 long_terms = data[data["Term"] == "Long Term"]
 
 long_terms_count = len(long_terms.index)
