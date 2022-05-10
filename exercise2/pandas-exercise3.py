@@ -1,4 +1,5 @@
 import pandas
+import scipy
 data = pandas.read_csv("data_salaries_india.csv")
 
 # helper function for pandas to convert all salaries
@@ -41,4 +42,29 @@ annual = data["Annual Salary"]
 no_vesas = annual.drop(index=annual.nlargest(2, keep="all").index)
 mean_salary_no_vesas = no_vesas.mean()
 # This alone drops the mean by ~20k rupees, not much probably but still good to know
+
+# Specialist = 0, manager = 1
+label1, unique1 = pandas.factorize(data["Role"], sort=False)
+label2, unique2 = pandas.factorize(data["Location"], sort=False)
+label3, unique3 = pandas.factorize(data["Company Name"], sort=False)
+data["Role Binary"] = label1
+data["Location Binary"] = label2
+data["Company binary"] = label3
+
+# As the number is close enough to zero, we can say that location has no correlance to salary
+location_to_salary = data["Location"].corr(data["Annual Salary"], method="spearman")
+
+# Now the number is -0.4, close to zero but not that close.
+# Some correlation is possible, but not enough to be confidently sure.
+# PS. I delved into a rabbit hole of the spearman rank correlation coefficient,
+# And the finnish wikipedia page uses an example chart of fish sizes while
+# The english page uses an example chart of hours of TV watched to IQ,
+# Cultural difference? Maybe.
+role_to_salary = data["Role"].corr(data["Annual Salary"], method="spearman")
+
+# Really close to zero, no correlation, so no companies have significantly higher salaries
+company_to_salary = data["Company Name"].corr(data["Annual Salary"], method="spearman")
+
+# Not many correlations, but there might be some errors in my way of trying to
+# Look for them, maybe need a different mindset of thinking
 
