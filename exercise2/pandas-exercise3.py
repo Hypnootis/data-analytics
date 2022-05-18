@@ -21,4 +21,4 @@ def yearly_wage(row):
     # return the yearly salary in integer format
     return number
 
-data = yearly_wage(data["Salary"])
+data["Annual Salary"] = data.apply(yearly_wage, axis=1)
